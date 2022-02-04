@@ -1,0 +1,74 @@
+import os
+import sys
+from PIL import Image
+
+# Absolute path where the images on which apply compression are stored
+original_image_abs_path = os.getcwd() + '/Original images'
+
+# Quality value of the two compression impairments
+# The higher the value of quality variable, the lesser will be the compression
+# IMPORTANT: The quality of the first impairment must be grater than the quality of the second impairment
+#            Moreover, the quality value must be in a range from 0 to 100, extremes included
+#            100 quality value = no compression, 0 quality value = maximum compression that can be applied
+quality_first_impairment = 10
+quality_second_impairment = 4
+
+
+# define a function for compressing an image
+def compress_me(file):
+    # Get the path of the file
+    filepath = os.path.join(original_image_abs_path,
+                            file)
+
+    # open the image
+    picture = Image.open(filepath)
+
+    # Save the compressed images, with desired quality:
+    # - First impairment
+    picture.save("./Compressed images/imp1/" + file,
+                 "JPEG",
+                 quality=quality_first_impairment,
+                 optimize=False)
+    # - Second impairment
+    picture.save("./Compressed images/imp2/" + file,
+                 "JPEG",
+                 quality=quality_second_impairment,
+                 optimize=False)
+    return
+
+
+# Define a main function
+def main():
+    # Types of images that will be taken on the selected folder
+    formats = ('.jpg', '.jpeg', '.png')
+
+    # If there are no images in the folder, the program will end
+    if len(os.listdir(original_image_abs_path)) == 0:
+        print('There are no images in folder:\n' + original_image_abs_path)
+        sys.exit()
+
+    # Else the compression starts
+    print('Compressing, in two different impairments, all the images located in folder:\n' + original_image_abs_path)
+    # looping through all the files in a current directory
+    for file in os.listdir(original_image_abs_path):
+        # If the file format is in formats list
+        if os.path.splitext(file)[1].lower() in formats:
+            print('Compressing image: ', file)
+            compress_me(file)
+
+    print('Compression ended')
+
+
+# Driver code
+if __name__ == "__main__":
+    main()
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+def ColorConversion(Y, Cr, Cb):
+    R = Cr*(2-2*.299) + Y
+    B = Cb*(2-2*.114) + Y
+    G = (Y - .114*B - .299*R)/.587
+    return (Clamp(R+128),Clamp(G+128),Clamp(B+128) )
