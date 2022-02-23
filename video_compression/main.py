@@ -2,14 +2,7 @@ import os
 import ffmpeg
 
 def compress_video(video_full_path, size_upper_bound, two_pass=True, filename_suffix='1'):
-    """
-    Compress video file to max-supported size.
-    :param video_full_path: the video you want to compress.
-    :param size_upper_bound: Max video size in KB.
-    :param two_pass: Set to True to enable two-pass calculation.
-    :param filename_suffix: Add a suffix for new video.
-    :return: out_put_name or error
-    """
+  
     filename, extension = os.path.splitext(video_full_path)
     extension = '.mp4'
     output_file_name = filename + filename_suffix + extension
@@ -20,7 +13,7 @@ def compress_video(video_full_path, size_upper_bound, two_pass=True, filename_su
     min_video_bitrate = 100000
 
     try:
-        # Bitrate reference: https://en.wikipedia.org/wiki/Bit_rate#Encoding_bit_rate
+       
         probe = ffmpeg.probe(video_full_path)
         # Video duration, in s.
         duration = float(probe['format']['duration'])
