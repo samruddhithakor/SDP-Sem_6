@@ -4,7 +4,7 @@ import math
 
 # import zigzag functions
 
-from JPEG.zigzag import zigzag
+from zigzag import zigzag
 
 
 def get_run_length_encoding(image):
@@ -35,7 +35,7 @@ QUANTIZATION_MAT = np.array(
      [49, 64, 78, 87, 103, 121, 120, 101], [72, 92, 95, 98, 112, 100, 103, 99]])
 
 # reading image in grayscale style
-img = cv2.imread('sample.jpeg', cv2.IMREAD_GRAYSCALE)
+img = cv2.imread('test2.jpg', cv2.IMREAD_GRAYSCALE)
 
 
 
@@ -115,7 +115,7 @@ for i in range(nbh):
         # copy reshaped matrix into padded_img on current block corresponding indices
         padded_img[row_ind_1: row_ind_2, col_ind_1: col_ind_2] = reshaped
 
-cv2.imshow('encoded image', np.uint8(padded_img))
+# cv2.imshow('encoded image', np.uint8(padded_img))
 
 arranged = padded_img.flatten()
 
